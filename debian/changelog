@@ -1,0 +1,5 @@
+libmonitoring-availability-perl (0.20-1) unstable; urgency=low
+
+  * Initial Release. (Closes: #643961)
+
+ -- Alexander Wirt <formorer@debian.org>  Sat, 1 Oct 2011 12:09:39 +0200
