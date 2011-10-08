@@ -11,6 +11,11 @@ Files: debian/*
 Copyright: 2011, Alexander Wirt <formorer@debian.org>
 License: Artistic
 
+Files: inc/Module/*
+Copyright: 2002-2010, Adam Kennedy <adamk@cpan.org>
+ 2002-2010, Audrey Tang <autrijus@autrijus.org>
+ 2002-2010, Brian Ingerson <ingy@cpan.org>
+License: Artistic or GPL-1+
 
 License: Artistic
  This program is free software; you can redistribute it and/or modify

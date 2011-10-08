@@ -1,3 +1,13 @@
+libmonitoring-availability-perl (0.20-2) unstable; urgency=low
+
+  * [da73924] Drop unneeded depends
+  * [1c3ef43] Add inc/ to copyright file
+  * [bbeb244] Remove useless libmonitoring-availability-perl.docs
+
+  Thanks to Salvatore Bonaccorso for the suggestions
+
+ -- Alexander Wirt <formorer@debian.org>  Sat, 08 Oct 2011 11:15:39 +0200
+
 libmonitoring-availability-perl (0.20-1) unstable; urgency=low
 
   * Initial Release. (Closes: #643961)
