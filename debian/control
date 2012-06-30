@@ -5,7 +5,7 @@ Maintainer: Alexander Wirt <formorer@debian.org>
 Build-Depends: debhelper (>= 8)
 Build-Depends-Indep: perl,
  perl (>= 5.10.1) | libtest-simple-perl (>= 0.87)
-Standards-Version: 3.9.2
+Standards-Version: 3.9.3
 Homepage: http://search.cpan.org/dist/Monitoring-Availability/
 
 Package: libmonitoring-availability-perl

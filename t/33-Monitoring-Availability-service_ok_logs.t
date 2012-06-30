@@ -7,7 +7,9 @@ use Test::More;
 use Data::Dumper;
 
 # checks against localtime will fail otherwise
+use POSIX qw(tzset);
 $ENV{'TZ'} = "CET";
+POSIX::tzset();
 
 BEGIN {
     if( $^O eq 'MSWin32' ) {
@@ -48,20 +50,21 @@ my $expected = {
 
                 'time_indeterminate_nodata'     => 0,
                 'time_indeterminate_notrunning' => 0,
+                'time_indeterminate_outside_timeperiod' => 0,
             }
         }
     }
 };
 
 my $expected_log = [
-    { 'start' => '2010-01-09 00:00:00', end => '2010-01-17 14:58:55', 'duration' => '8d 14h 58m 55s',  'type' => 'SERVICE OK (HARD)', plugin_output => 'n0_test_host_000 (checked by mo) REVOVERED: random n0_test_random_04 recovered', 'class' => 'OK' },
-    { 'start' => '2010-01-18 00:00:00', end => '2010-01-19 00:00:00', 'duration' => '1d 0h 0m 0s',     'type' => 'SERVICE OK (HARD)', plugin_output => 'n0_test_host_000 (checked by mo) REVOVERED: random n0_test_random_04 recovered', 'class' => 'OK' },
-    { 'start' => '2010-01-19 00:00:00', end => '2010-01-20 00:00:00', 'duration' => '1d 0h 0m 0s',     'type' => 'SERVICE OK (HARD)', plugin_output => 'n0_test_host_000 (checked by mo) REVOVERED: random n0_test_random_04 recovered', 'class' => 'OK' },
-    { 'start' => '2010-01-20 00:00:00', end => '2010-01-20 22:16:24', 'duration' => '0d 22h 16m 24s+', 'type' => 'SERVICE OK (HARD)', plugin_output => 'n0_test_host_000 (checked by mo) REVOVERED: random n0_test_random_04 recovered', 'class' => 'OK' },
+    { 'start' => '2010-01-09 00:00:00', end => '2010-01-17 14:58:55', 'duration' => '8d 14h 58m 55s',  'type' => 'SERVICE OK (HARD)', plugin_output => 'n0_test_host_000 (checked by mo) REVOVERED: random n0_test_random_04 recovered', 'class' => 'OK', 'in_downtime' => 0 },
+    { 'start' => '2010-01-18 00:00:00', end => '2010-01-19 00:00:00', 'duration' => '1d 0h 0m 0s',     'type' => 'SERVICE OK (HARD)', plugin_output => 'n0_test_host_000 (checked by mo) REVOVERED: random n0_test_random_04 recovered', 'class' => 'OK', 'in_downtime' => 0 },
+    { 'start' => '2010-01-19 00:00:00', end => '2010-01-20 00:00:00', 'duration' => '1d 0h 0m 0s',     'type' => 'SERVICE OK (HARD)', plugin_output => 'n0_test_host_000 (checked by mo) REVOVERED: random n0_test_random_04 recovered', 'class' => 'OK', 'in_downtime' => 0 },
+    { 'start' => '2010-01-20 00:00:00', end => '2010-01-20 22:16:24', 'duration' => '0d 22h 16m 24s+', 'type' => 'SERVICE OK (HARD)', plugin_output => 'n0_test_host_000 (checked by mo) REVOVERED: random n0_test_random_04 recovered', 'class' => 'OK', 'in_downtime' => 0 },
 ];
 my $expected_full_log = [
     { 'start' => '2010-01-08 15:50:52', 'end' => '2010-01-09 00:00:00', 'duration' => '0d 8h 9m 8s',     'type' => 'PROGRAM (RE)START', 'plugin_output' => 'Program start', 'class' => 'INDETERMINATE' },
-    { 'start' => '2010-01-09 00:00:00', 'end' => '2010-01-17 14:58:55', 'duration' => '8d 14h 58m 55s',  'type' => 'SERVICE OK (HARD)', 'plugin_output' => 'n0_test_host_000 (checked by mo) REVOVERED: random n0_test_random_04 recovered', 'class' => 'OK' },
+    { 'start' => '2010-01-09 00:00:00', 'end' => '2010-01-17 14:58:55', 'duration' => '8d 14h 58m 55s',  'type' => 'SERVICE OK (HARD)', 'plugin_output' => 'n0_test_host_000 (checked by mo) REVOVERED: random n0_test_random_04 recovered', 'class' => 'OK', 'in_downtime' => 0 },
     { 'start' => '2010-01-17 14:58:55', 'end' => '2010-01-17 17:02:26', 'duration' => '0d 2h 3m 31s',    'type' => 'PROGRAM (RE)START', 'plugin_output' => 'Program start', 'class' => 'INDETERMINATE' },
     { 'start' => '2010-01-17 17:02:26', 'end' => '2010-01-17 17:02:28', 'duration' => '0d 0h 0m 2s',     'type' => 'PROGRAM END',       'plugin_output' => 'Normal program termination', 'class' => 'INDETERMINATE' },
     { 'start' => '2010-01-17 17:02:28', 'end' => '2010-01-17 17:03:55', 'duration' => '0d 0h 1m 27s',    'type' => 'PROGRAM (RE)START', 'plugin_output' => 'Program start', 'class' => 'INDETERMINATE' },
@@ -69,16 +72,15 @@ my $expected_full_log = [
     { 'start' => '2010-01-17 17:03:58', 'end' => '2010-01-17 17:04:57', 'duration' => '0d 0h 0m 59s',    'type' => 'PROGRAM (RE)START', 'plugin_output' => 'Program start', 'class' => 'INDETERMINATE' },
     { 'start' => '2010-01-17 17:04:57', 'end' => '2010-01-17 17:05:00', 'duration' => '0d 0h 0m 3s',     'type' => 'PROGRAM END',       'plugin_output' => 'Normal program termination', 'class' => 'INDETERMINATE' },
     { 'start' => '2010-01-17 17:05:00', 'end' => '2010-01-18 00:00:00', 'duration' => '0d 6h 55m 0s',    'type' => 'PROGRAM (RE)START', 'plugin_output' => 'Program start', 'class' => 'INDETERMINATE' },
-    { 'start' => '2010-01-18 00:00:00', 'end' => '2010-01-19 00:00:00', 'duration' => '1d 0h 0m 0s',     'type' => 'SERVICE OK (HARD)', 'plugin_output' => 'n0_test_host_000 (checked by mo) REVOVERED: random n0_test_random_04 recovered', 'class' => 'OK' },
-    { 'start' => '2010-01-19 00:00:00', 'end' => '2010-01-20 00:00:00', 'duration' => '1d 0h 0m 0s',     'type' => 'SERVICE OK (HARD)', 'plugin_output' => 'n0_test_host_000 (checked by mo) REVOVERED: random n0_test_random_04 recovered', 'class' => 'OK' },
-    { 'start' => '2010-01-20 00:00:00', 'end' => '2010-01-20 22:16:24', 'duration' => '0d 22h 16m 24s+', 'type' => 'SERVICE OK (HARD)', 'plugin_output' => 'n0_test_host_000 (checked by mo) REVOVERED: random n0_test_random_04 recovered', 'class' => 'OK' },
+    { 'start' => '2010-01-18 00:00:00', 'end' => '2010-01-19 00:00:00', 'duration' => '1d 0h 0m 0s',     'type' => 'SERVICE OK (HARD)', 'plugin_output' => 'n0_test_host_000 (checked by mo) REVOVERED: random n0_test_random_04 recovered', 'class' => 'OK', 'in_downtime' => 0 },
+    { 'start' => '2010-01-19 00:00:00', 'end' => '2010-01-20 00:00:00', 'duration' => '1d 0h 0m 0s',     'type' => 'SERVICE OK (HARD)', 'plugin_output' => 'n0_test_host_000 (checked by mo) REVOVERED: random n0_test_random_04 recovered', 'class' => 'OK', 'in_downtime' => 0 },
+    { 'start' => '2010-01-20 00:00:00', 'end' => '2010-01-20 22:16:24', 'duration' => '0d 22h 16m 24s+', 'type' => 'SERVICE OK (HARD)', 'plugin_output' => 'n0_test_host_000 (checked by mo) REVOVERED: random n0_test_random_04 recovered', 'class' => 'OK', 'in_downtime' => 0 },
 ];
 
 #########################
 # avail.cgi?host=n0_test_host_000&service=n0_test_random_04&t1=1263417384&t2=1264022184&backtrack=4&assumestateretention=yes&assumeinitialstates=yes&assumestatesduringnotrunning=yes&initialassumedhoststate=0&initialassumedservicestate=0&show_log_entries&full_log_entries&showscheduleddowntime=yes
 my $ma = Monitoring::Availability->new(
-    'verbose'                       => 1,
-    'logger'                        => $logger,
+    'verbose'                       => 0,
     'backtrack'                     => 4,
     'assumestateretention'          => 'yes',
     'assumeinitialstates'           => 'yes',

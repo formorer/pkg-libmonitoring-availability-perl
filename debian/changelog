@@ -1,3 +1,10 @@
+libmonitoring-availability-perl (0.38-1) unstable; urgency=low
+
+  * [ec5173d] Imported Upstream version 0.38
+  * [f2b8095] Bump standards version
+
+ -- Alexander Wirt <formorer@debian.org>  Sat, 30 Jun 2012 10:57:16 +0200
+
 libmonitoring-availability-perl (0.20-2) unstable; urgency=low
 
   * [da73924] Drop unneeded depends

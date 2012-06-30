@@ -1,5 +1,34 @@
 Revision history for Perl extension Monitoring::Availability.
 
+0.38  Thu Jun 21 10:25:03 CEST 2012
+    - don't break on broken logfiles
+
+0.36  Mon May 21 16:53:29 CEST 2012
+    - fixed breakdown values with uneven report timeperiods
+    - added downtime information to result logs
+
+0.34  Tue May  8 21:25:56 CEST 2012
+    - another fix in calculation with no logs
+
+0.32  Fri May  4 19:06:03 CEST 2012
+    - fixed calculation with empty logs from livestatus
+
+0.30  Mon Apr 30 17:35:04 CEST 2012
+    - fixed breakdown support when no events happen between breakpoints
+
+0.28  Mon Apr 30 17:35:04 CEST 2012
+    - fixed breakdown support on bsd systems
+
+0.26  Mon Apr 23 17:23:24 CEST 2012
+    - added breakdown support
+
+0.24  Fri Jan 27 00:34:03 CET 2012
+    - fixed timeperiod support
+    - report time outside timeperiods as extra item
+
+0.22  Thu Jan 26 01:10:58 CET 2012
+    - added support for timeperiods (based on livestatus time transitions)
+
 0.20  Sun Jul 31 10:36:44 CEST 2011
     - fixed problem with pending states in shinken
 

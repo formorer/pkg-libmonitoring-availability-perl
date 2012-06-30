@@ -35,14 +35,14 @@ my $expected = {
 
             'time_indeterminate_nodata'     => 97550,
             'time_indeterminate_notrunning' => 0,
+            'time_indeterminate_outside_timeperiod' => 0,
         }
     }
 };
 
 #########################
 my $ma = Monitoring::Availability->new(
-    'verbose'                       => 1,
-    'logger'                        => $logger,
+    'verbose'                       => 0,
     'backtrack'                     => 4,
     'assumestateretention'          => 'yes',
     'assumeinitialstates'           => 'yes',

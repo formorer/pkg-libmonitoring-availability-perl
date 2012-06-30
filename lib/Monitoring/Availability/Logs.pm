@@ -206,6 +206,7 @@ sub _parse_line {
 ########################################
 # search for a token and return first occurance, trim that part from string
 sub _strtok {
+    return '' unless defined $_[1];
     my $index = index($_[1], $_[2]);
     if($index != -1) {
         my $value = substr($_[1], 0, $index, '');
@@ -262,6 +263,15 @@ sub _set_from_options {
         $data->{'host_name'}           = $self->_strtok($string, ';');
         $data->{'service_description'} = $self->_strtok($string, ';');
         $data->{'start'}               = $self->_startstr_to_start($self->_strtok($string, ';'));
+    }
+
+    # Timeperiod Transitions
+    # livestatus does not parse this correct, so we have to use regex
+    elsif($data->{'type'} =~ m/^TIMEPERIOD\ TRANSITION/mx) {
+        $data->{'type'}       = 'TIMEPERIOD TRANSITION';
+        $data->{'timeperiod'} = $self->_strtok($string, ';');
+        $data->{'from'}       = $self->_strtok($string, ';');
+        $data->{'to'}         = $self->_strtok($string, ';');
     }
 
     return 1;
