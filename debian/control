@@ -7,6 +7,8 @@ Build-Depends-Indep: perl,
  perl (>= 5.10.1) | libtest-simple-perl (>= 0.87)
 Standards-Version: 3.9.3
 Homepage: http://search.cpan.org/dist/Monitoring-Availability/
+Vcs-Browser: https://github.com/formorer/pkg-libmonitoring-availability-perl
+Vcs-Git: git://github.com/formorer/pkg-libmonitoring-availability-perl.git
 
 Package: libmonitoring-availability-perl
 Architecture: all
