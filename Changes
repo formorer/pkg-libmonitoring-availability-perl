@@ -1,0 +1,56 @@
+Revision history for Perl extension Monitoring::Availability.
+
+0.20  Sun Jul 31 10:36:44 CEST 2011
+    - fixed problem with pending states in shinken
+
+0.18  Sat Apr 16 18:01:26 CEST 2011
+    - fixed tests with use english
+
+0.16  Fri Jun 18 13:18:29 CEST 2010
+    - added perl 5.8 requirement
+
+0.14  Fri Jun 18 11:53:49 CEST 2010
+    - excluded some tests on windows hosts
+
+0.12  Sun Feb 21 18:04:47 CET 2010
+    - fixed initial fake log for empty logs
+
+0.11  Sat Feb 20 20:22:48 CET 2010
+    - fixed logfile tests on windows
+
+0.10  Sun Feb  7 02:48:47 CET 2010
+    - fixed initial fake entry
+
+0.08  Sun Jan 24 21:39:55 CET 2010
+    - added on the fly calculation for livestatus logs
+
+0.07  Sun Jan 24 21:39:55 CET 2010
+    - fixed report log for hosts with services
+    - fixed test requirements
+
+0.06  Sun Jan 24 00:29:06 CET 2010
+    - fixed initial states 'current'
+
+0.05  Thu Jan 21 22:05:16 CET 2010
+    - fixed reports when logfiles are totally out of report range
+    - changed the way of settings options
+    - added new option services_inherit_hostdowntimes
+    - added new option timeformat which is used for log output
+    - moved logfile parsing to extra module
+    - fixed initialassumedservicestate
+
+0.04  Mon Jan 18 08:06:59 CET 2010
+    - added message when passing wrong services
+
+0.03  Sat Jan 16 20:46:54 CET 2010
+    - added resulting datastructure
+    - added read string/array/file/dir methods
+    - first tests
+    - implemented assumestatesduringnotrunning option
+    - implemented service availability calculation
+    - implemented hostdowntimes
+    - implemented servicedowntimes
+    - implemented hosts
+
+0.01  Fri Jan 15 16:40:00 CET 2010
+    - initial version
