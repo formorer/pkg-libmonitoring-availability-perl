@@ -1,3 +1,10 @@
+libmonitoring-availability-perl (0.40-1) unstable; urgency=low
+
+  * [4ea4f5f] Add Vcs-Git info to control file
+  * [31bfca4] Imported Upstream version 0.40
+
+ -- Alexander Wirt <formorer@debian.org>  Tue, 19 Feb 2013 10:13:31 +0100
+
 libmonitoring-availability-perl (0.38-1) unstable; urgency=low
 
   * [ec5173d] Imported Upstream version 0.38
